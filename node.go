@@ -108,6 +108,10 @@ func (n *Node) event_manage() {
 			} else {
 				fmt.Println("DELETE failed")
 			}
+		case "ls":
+			for key := range n.hashtable {
+				fmt.Println("key " + key)
+			}
 
 		case "EXIT":
 			return

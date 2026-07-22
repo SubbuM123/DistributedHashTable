@@ -1,5 +1,7 @@
 package main
 
+// import "fmt"
+
 func (n *Node) Insert(key string, value string) {
 	n.hashtable[key] = value
 }
@@ -31,9 +33,8 @@ func (n *Node) Put(key string, value string) bool {
 func (n *Node) Get(key string) (bool, string) {
 	h := hash(key)
 	if n.Owns(h) {
-		// TODO change this to check if exists else return key doesnt exist
 		if _, exists := n.hashtable[key]; exists {
-			log_data(n.id, "GOT "+key)
+			log_data(n.id, "GOT "+ key)
 			return true, n.hashtable[key]
 		}
 		return false, "GET failed"
@@ -50,15 +51,15 @@ func (n *Node) Get(key string) (bool, string) {
 func (n *Node) Delete(key string) bool {
 	h := hash(key)
 	if n.Owns(h) {
-		log_data(n.id, "DELETED "+key)
 		if _, exists := n.hashtable[key]; exists {
+			log_data(n.id, "DELETED "+key)
 			delete(n.hashtable, key)
 			return true
 		}
 		return false
 	} else {
 		err := n.SendDelete(n.FindOwner(h), key)
-
+		// fmt.Println(err)
 		if err != nil {
 			return false
 		}
