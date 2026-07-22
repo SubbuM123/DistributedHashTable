@@ -1,0 +1,67 @@
+package main
+
+func (n *Node) Insert(key string, value string) {
+	n.hashtable[key] = value
+}
+
+func (n *Node) Find(key string) (string, bool) {
+	val, exists := n.hashtable[key]
+	return val, exists
+}
+
+func (n *Node) Remove(key string) {
+	delete(n.hashtable, key)
+}
+
+func (n *Node) Put(key string, value string) bool {
+	h := hash(key)
+	if n.Owns(h) {
+		log_data(n.id, "PUT "+key+", "+value)
+		n.Insert(key, value)
+	} else {
+		err := n.SendPut(n.FindOwner(h), key, value)
+
+		if err != nil {
+			return false
+		}
+	}
+	return true
+}
+
+func (n *Node) Get(key string) (bool, string) {
+	h := hash(key)
+	if n.Owns(h) {
+		// TODO change this to check if exists else return key doesnt exist
+		if _, exists := n.hashtable[key]; exists {
+			log_data(n.id, "GOT "+key)
+			return true, n.hashtable[key]
+		}
+		return false, "GET failed"
+	} else {
+		val, err := n.SendGet(n.FindOwner(h), key)
+
+		if err != nil {
+			return false, ""
+		}
+		return true, val
+	}
+}
+
+func (n *Node) Delete(key string) bool {
+	h := hash(key)
+	if n.Owns(h) {
+		log_data(n.id, "DELETED "+key)
+		if _, exists := n.hashtable[key]; exists {
+			delete(n.hashtable, key)
+			return true
+		}
+		return false
+	} else {
+		err := n.SendDelete(n.FindOwner(h), key)
+
+		if err != nil {
+			return false
+		}
+	}
+	return true
+}
