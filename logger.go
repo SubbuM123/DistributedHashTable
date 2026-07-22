@@ -7,7 +7,7 @@ import (
 
 func log_updates(node_id uint64, update string) {
 	file, err := os.OpenFile(
-		"log.txt",
+		"logs/system_log.txt",
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY,
 		0644,
 	)
@@ -28,7 +28,7 @@ func log_updates(node_id uint64, update string) {
 
 func log_data(node_id uint64, update string) {
 	file, err := os.OpenFile(
-		"data.txt",
+		"logs/data_log.txt",
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY,
 		0644,
 	)
