@@ -1,0 +1,15 @@
+Node 67 > Joined the system, yet to be placed 
+Node 67 > Initialized as the first node 
+Node 33 > Joined the system, yet to be placed 
+Node 33 > Successor assigned: 67 
+Node 33 > Predecessor assigned: 67 
+Node 67 > Predecessor updated: 33 
+Node 67 > Successor updated: 33 
+Node 45 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 45 (was self) 
+Node 45 > Successor assigned: 67 
+Node 45 > Predecessor assigned: 33 
+Node 67 > Predecessor updated: 45 
+Node 33 > Successor updated: 45 
+Node 67 > Sent successor to 31 (wrapped) 
+Node 67 > Sent successor to 31 (wrapped) 
