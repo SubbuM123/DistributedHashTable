@@ -48,7 +48,7 @@ func main() {
 	if err := n.JoinSystem(bs); err != nil {
 		log_updates(n.id, "Join failed: "+err.Error())
 	}
-
+	go n.FailureDetector()
 	n.event_manage()
 	// switch {}
 }
