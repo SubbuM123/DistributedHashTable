@@ -205,6 +205,14 @@ func (n *Node) UpdatePred(pred NodeInfo) {
 	}
 	n.predecessor.Addr = pred.Addr
 	n.predecessor.Id = pred.Id
+
+	for key, value := range n.hashtable {
+		if hash(key) <= pred.Id {
+			n.SendPut(pred.Addr, key,value)
+			n.Delete(key)
+		}
+	}
+
 	log_updates(n.id, "Predecessor updated: "+strconv.Itoa(int(n.predecessor.Id)))
 }
 

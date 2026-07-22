@@ -2,3 +2,7 @@ Node 33 > GOT color
 Node 33 > GOT color 
 Node 33 > GOT color 
 Node 33 > GOT color 
+Node 67 > PUT A, b 
+Node 67 > GOT A 
+Node 67 > PUT act, bct 
+Node 67 > GOT act 
