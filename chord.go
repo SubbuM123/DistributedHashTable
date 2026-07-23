@@ -2,8 +2,10 @@ package main
 
 import (
 	"errors"
+	// "fmt"
 	"net/rpc"
 	"strconv"
+	"time"
 )
 
 func (n *Node) FindOwner(hash uint64) string {
@@ -83,4 +85,49 @@ func (n *Node) RemoteFindSuccessor(id uint64, reply *NodeInfo) error {
 
 	*reply = succ
 	return nil
+}
+
+func (n *Node) StartFingerTable() {
+	for i := 0; i < 8; i++ {
+		start := (n.id + (1 << i)) % 256
+		n.fingers[i].Num = start
+		n.fingers[i].FingerNode = n.FindSuccessor(start)
+	}
+}
+
+func (n *Node) MakeFingerTable() {
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		n.StartFingerTable()
+	}
+}
+
+func (n *Node) FindFinger(hash uint64) NodeInfo {
+	if len(n.fingers) == 0 {
+		return NodeInfo{Id: n.id, Addr: n.addr}
+	}
+
+	for i := len(n.fingers) - 1; i >= 0; i-- {
+		if n.fingers[i].FingerNode.Id == 0 || n.fingers[i].FingerNode.Addr == "" {
+			continue
+		}
+
+		if betweenFinger(n.id, n.fingers[i].FingerNode.Id, hash) {
+			return n.fingers[i].FingerNode
+		}
+	}
+
+	return n.successor
+}
+
+func betweenFinger(start, target, end uint64) bool {
+	if start == end {
+		return true
+	}
+	if start < end {
+		return target > start && target < end
+	}
+	return target > start || target < end
 }

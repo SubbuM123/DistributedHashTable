@@ -12,9 +12,11 @@ import (
 
 type Node struct {
 	hashtable map[string]string
+
 	id        uint64
 	addr      string
-	// neighbors map[uint64]string
+	
+	fingers []Fingers
 
 	successor   NodeInfo
 	predecessor NodeInfo
@@ -38,6 +40,11 @@ type RPCArgs struct {
 type RPCReply struct {
 	Value  string
 	Exists bool
+}
+
+type Fingers struct {
+	Num uint64
+	FingerNode NodeInfo
 }
 
 func hash(key string) uint64 {
@@ -111,6 +118,13 @@ func (n *Node) event_manage() {
 		case "ls":
 			for key := range n.hashtable {
 				fmt.Println("key " + key)
+			}
+		case "finger":
+			t, _ := strconv.Atoi(args[1])
+			fmt.Println(n.FindFinger(uint64(t)).Id)
+		case "f":
+			for i := 0; i < 8; i++ {
+				fmt.Println(n.fingers[i].FingerNode.Id)
 			}
 
 		case "EXIT":

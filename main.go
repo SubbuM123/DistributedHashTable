@@ -48,7 +48,12 @@ func main() {
 	if err := n.JoinSystem(bs); err != nil {
 		log_updates(n.id, "Join failed: "+err.Error())
 	}
+	n.fingers = make([]Fingers, 8)
+
+	// make ft here
+
 	go n.FailureDetector()
+	go n.MakeFingerTable()
 	n.event_manage()
 	// switch {}
 }
