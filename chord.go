@@ -57,12 +57,16 @@ func (n *Node) FindSuccessor(id uint64) NodeInfo {
 		log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (wrapped)")
 		return n.successor
 	}
-
-	return n.FindSuccessorRPC(id)
+	f := n.FindFinger(id)
+	return n.FindSuccessorRPC(f, id)
 }
 
-func (n *Node) FindSuccessorRPC(id uint64) NodeInfo {
-	client, err := rpc.Dial("tcp", n.successor.Addr)
+func (n *Node) FindSuccessorRPC(target NodeInfo, id uint64) NodeInfo {
+	if target.Addr == "" || target.Addr == n.addr {
+		return NodeInfo{Id: n.id, Addr: n.addr}
+	}
+
+	client, err := rpc.Dial("tcp", target.Addr)
 	if err != nil {
 		return NodeInfo{Id: n.id, Addr: n.addr}
 	}
