@@ -18,9 +18,10 @@ func main() {
 	node_id, _ := strconv.ParseUint(id, 10, 64)
 
 	n := Node{
-		hashtable: make(map[string]string),
-		id:        uint64(node_id),
-		addr:      log_addr,
+		hashtable:     make(map[string]string),
+		successor_list: make([]NodeInfo, 2),
+		id:            uint64(node_id),
+		addr:          log_addr,
 		// neighbors: make(map[uint64]string),
 	}
 
@@ -54,6 +55,7 @@ func main() {
 
 	go n.FailureDetector()
 	go n.MakeFingerTable()
+	go n.Stabilize()
 	n.event_manage()
 	// switch {}
 }

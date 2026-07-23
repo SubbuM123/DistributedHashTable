@@ -7,16 +7,20 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 	// "errors"
 )
 
 type Node struct {
 	hashtable map[string]string
+	pred_hashtable map[string]string
 
 	id        uint64
 	addr      string
 	
 	fingers []Fingers
+
+	successor_list []NodeInfo
 
 	successor   NodeInfo
 	predecessor NodeInfo
@@ -119,14 +123,16 @@ func (n *Node) event_manage() {
 			for key := range n.hashtable {
 				fmt.Println("key " + key)
 			}
-		case "finger":
-			t, _ := strconv.Atoi(args[1])
-			fmt.Println(n.FindFinger(uint64(t)).Id)
+		case "s":
+			fmt.Println(n.successor_list[0].Id)
+			fmt.Println(n.successor_list[1].Id)
 		case "f":
 			for i := 0; i < 8; i++ {
 				fmt.Println(n.fingers[i].FingerNode.Id)
 			}
-
+		case "n":
+			fmt.Println(n.successor.Id)
+			fmt.Println(n.predecessor.Id)
 		case "EXIT":
 			return
 
@@ -144,6 +150,7 @@ func (n *Node) JoinSystem(bs_addr string) error {
 	if bs_addr == "" || bs_addr == "START" {
 		n.successor = NodeInfo{Id: n.id, Addr: n.addr}
 		n.predecessor = NodeInfo{Id: n.id, Addr: n.addr}
+		n.updateSuccessorList(n.successor)
 		log_updates(n.id, "Initialized as the first node")
 		return nil
 	}
@@ -166,6 +173,7 @@ func (n *Node) JoinSystem(bs_addr string) error {
 	}
 
 	n.successor = successor
+	n.updateSuccessorList(successor)
 	log_updates(n.id, "Successor assigned: "+strconv.Itoa(int(n.successor.Id)))
 
 	info := NodeInfo{Id: n.id, Addr: n.addr}
@@ -177,10 +185,7 @@ func (n *Node) JoinSystem(bs_addr string) error {
 	}
 	defer predClient.Close()
 
-	if err := predClient.Call("Node.RemoteGetPredecessor", struct{}{}, &pred); err != nil {
-		pred = successor
-	}
-	if pred.Id == 0 || pred.Addr == "" {
+	if err := predClient.Call("Node.RemoteGetPredecessor", struct{}{}, &pred); err != nil || pred.Id == 0 || pred.Addr == "" {
 		pred = successor
 	}
 
@@ -210,7 +215,55 @@ func (n *Node) JoinSystem(bs_addr string) error {
 		}
 	}
 
+	// time.Sleep(50 * time.Millisecond)
+	// n.updateSuccessorList(n.successor)
+
 	return nil
+}
+
+func (n *Node) updateSuccessorList(succ NodeInfo) {
+	if len(n.successor_list) != 2 {
+		n.successor_list = make([]NodeInfo, 2)
+	}
+
+	if succ.Id == 0 || succ.Addr == "" {
+		n.successor_list[0] = n.successor
+		n.successor_list[1] = n.successor
+		return
+	}
+
+	n.successor_list[0] = succ
+
+	var next NodeInfo
+	for attempt := 0; attempt < 2; attempt++ {
+		client, err := rpc.Dial("tcp", succ.Addr)
+		if err == nil {
+			if err := client.Call("Node.RemoteGetSuccessor", struct{}{}, &next); err == nil && next.Id != 0 && next.Addr != "" {
+				client.Close()
+				break
+			}
+			client.Close()
+		}
+
+		if attempt < 1 {
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+
+	if next.Id == 0 || next.Addr == "" || next.Addr == succ.Addr {
+		next = succ
+	}
+
+	n.successor_list[1] = next
+}
+
+func (n *Node) Stabilize() {
+	ticker := time.NewTicker(5 * time.Second)
+    defer ticker.Stop()
+
+    for range ticker.C {
+        n.updateSuccessorList(n.successor)
+    }
 }
 
 func (n *Node) UpdatePred(pred NodeInfo) {
@@ -237,6 +290,8 @@ func (n *Node) UpdateSucc(succ NodeInfo) {
 	n.successor.Addr = succ.Addr
 	n.successor.Id = succ.Id
 	log_updates(n.id, "Successor updated: "+strconv.Itoa(int(n.successor.Id)))
+
+	n.updateSuccessorList(succ)
 }
 
 func (n *Node) RemoteNotifySuccessor(pred NodeInfo, reply *bool) error {
