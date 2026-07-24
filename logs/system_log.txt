@@ -6912,3 +6912,196 @@ Node 45 > Sent successor to 61 (was successor)
 Node 67 > Sent successor to 77 (wrapped) 
 Node 67 > Sent successor to 109 (wrapped) 
 Node 67 > Sent successor to 173 (wrapped) 
+Node 67 > Joined the system, yet to be placed 
+Node 67 > Initialized as the first node 
+Node 33 > Joined the system, yet to be placed 
+Node 33 > Successor assigned: 67 
+Node 33 > Predecessor assigned: 67 
+Node 67 > Predecessor updated: 33 
+Node 67 > Successor updated: 33 
+Node 45 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 45 (was self) 
+Node 45 > Successor assigned: 67 
+Node 45 > Predecessor assigned: 33 
+Node 67 > Predecessor updated: 45 
+Node 33 > Successor updated: 45 
+Node 233 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 233 (wrapped) 
+Node 233 > Successor assigned: 33 
+Node 233 > Predecessor assigned: 67 
+Node 33 > Predecessor updated: 233 
+Node 67 > Successor updated: 233 
+Node 150 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 150 (was successor) 
+Node 150 > Successor assigned: 233 
+Node 150 > Predecessor assigned: 67 
+Node 233 > Predecessor updated: 150 
+Node 67 > Successor updated: 150 
+Node 200 > Joined the system, yet to be placed 
+Node 150 > Sent successor to 200 (was successor) 
+Node 200 > Successor assigned: 233 
+Node 200 > Predecessor assigned: 150 
+Node 233 > Predecessor updated: 200 
+Node 150 > Successor updated: 200 
+Node 100 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 100 (was successor) 
+Node 100 > Successor assigned: 150 
+Node 100 > Predecessor assigned: 67 
+Node 150 > Predecessor updated: 100 
+Node 67 > Successor updated: 100 
+Node 52 > Joined the system, yet to be placed 
+Node 45 > Sent successor to 52 (was successor) 
+Node 52 > Successor assigned: 67 
+Node 52 > Predecessor assigned: 45 
+Node 67 > Predecessor updated: 52 
+Node 45 > Successor updated: 52 
+Node 45 > NODE FAILURE : Node 52 didn't connect 
+Node 67 > Sent successor to 68 (was successor) 
+Node 67 > Sent successor to 69 (was successor) 
+Node 67 > Sent successor to 71 (was successor) 
+Node 67 > Sent successor to 75 (was successor) 
+Node 67 > Sent successor to 83 (was successor) 
+Node 67 > Sent successor to 99 (was successor) 
+Node 67 > NODE FAILURE : Node 52 didn't connect 
+Node 100 > Sent successor to 131 (was successor) 
+Node 150 > Sent successor to 195 (was successor) 
+Node 33 > Sent successor to 34 (was successor) 
+Node 33 > Sent successor to 35 (was successor) 
+Node 33 > Sent successor to 37 (was successor) 
+Node 33 > Sent successor to 41 (was successor) 
+Node 45 > Sent successor to 49 (was successor) 
+Node 45 > Sent successor to 46 (was successor) 
+Node 45 > Sent successor to 47 (was successor) 
+Node 45 > NODE FAILURE : Node 52 didn't connect 
+Node 45 > Sent successor to 49 (was successor) 
+Node 67 > NODE FAILURE : Node 52 didn't connect 
+Node 233 > Sent successor to 234 (wrapped) 
+Node 233 > Sent successor to 235 (wrapped) 
+Node 233 > Sent successor to 237 (wrapped) 
+Node 233 > Sent successor to 241 (wrapped) 
+Node 233 > Sent successor to 249 (wrapped) 
+Node 233 > Sent successor to 9 (wrapped) 
+Node 33 > Sent successor to 41 (was successor) 
+Node 150 > Sent successor to 151 (was successor) 
+Node 150 > Sent successor to 152 (was successor) 
+Node 150 > Sent successor to 154 (was successor) 
+Node 150 > Sent successor to 158 (was successor) 
+Node 150 > Sent successor to 166 (was successor) 
+Node 150 > Sent successor to 182 (was successor) 
+Node 200 > Sent successor to 214 (was successor) 
+Node 233 > Sent successor to 22 (wrapped) 
+Node 200 > Sent successor to 201 (was successor) 
+Node 200 > Sent successor to 202 (was successor) 
+Node 200 > Sent successor to 204 (was successor) 
+Node 200 > Sent successor to 208 (was successor) 
+Node 200 > Sent successor to 216 (was successor) 
+Node 200 > Sent successor to 232 (was successor) 
+Node 233 > Sent successor to 8 (wrapped) 
+Node 100 > Sent successor to 101 (was successor) 
+Node 100 > Sent successor to 102 (was successor) 
+Node 100 > Sent successor to 104 (was successor) 
+Node 100 > Sent successor to 108 (was successor) 
+Node 100 > Sent successor to 116 (was successor) 
+Node 100 > Sent successor to 132 (was successor) 
+Node 150 > Sent successor to 164 (was successor) 
+Node 200 > Sent successor to 228 (was successor) 
+Node 45 > NODE FAILURE : Node 52 didn't connect 
+Node 67 > NODE FAILURE : Node 52 didn't connect 
+Node 33 > NODE FAILURE : Node 45 didn't connect 
+Node 67 > Joined the system, yet to be placed 
+Node 67 > Initialized as the first node 
+Node 33 > Joined the system, yet to be placed 
+Node 33 > Successor assigned: 67 
+Node 33 > Predecessor assigned: 67 
+Node 67 > Predecessor updated: 33 
+Node 67 > Successor updated: 33 
+Node 45 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 45 (was self) 
+Node 45 > Successor assigned: 67 
+Node 45 > Predecessor assigned: 33 
+Node 67 > Predecessor updated: 45 
+Node 33 > Successor updated: 45 
+Node 233 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 233 (wrapped) 
+Node 233 > Successor assigned: 33 
+Node 233 > Predecessor assigned: 67 
+Node 33 > Predecessor updated: 233 
+Node 67 > Successor updated: 233 
+Node 150 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 150 (was successor) 
+Node 150 > Successor assigned: 233 
+Node 150 > Predecessor assigned: 67 
+Node 233 > Predecessor updated: 150 
+Node 67 > Successor updated: 150 
+Node 200 > Joined the system, yet to be placed 
+Node 150 > Sent successor to 200 (was successor) 
+Node 200 > Successor assigned: 233 
+Node 200 > Predecessor assigned: 150 
+Node 233 > Predecessor updated: 200 
+Node 150 > Successor updated: 200 
+Node 100 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 100 (was successor) 
+Node 100 > Successor assigned: 150 
+Node 100 > Predecessor assigned: 67 
+Node 150 > Predecessor updated: 100 
+Node 67 > Successor updated: 100 
+Node 52 > Joined the system, yet to be placed 
+Node 45 > Sent successor to 52 (was successor) 
+Node 52 > Successor assigned: 67 
+Node 52 > Predecessor assigned: 45 
+Node 67 > Predecessor updated: 52 
+Node 45 > Successor updated: 52 
+Node 67 > Sent successor to 68 (was successor) 
+Node 67 > Sent successor to 69 (was successor) 
+Node 67 > Sent successor to 71 (was successor) 
+Node 67 > Sent successor to 75 (was successor) 
+Node 67 > Sent successor to 83 (was successor) 
+Node 67 > Sent successor to 99 (was successor) 
+Node 100 > Sent successor to 131 (was successor) 
+Node 150 > Sent successor to 195 (was successor) 
+Node 33 > Sent successor to 34 (was successor) 
+Node 33 > Sent successor to 35 (was successor) 
+Node 33 > Sent successor to 37 (was successor) 
+Node 33 > Sent successor to 41 (was successor) 
+Node 45 > Sent successor to 49 (was successor) 
+Node 45 > NODE FAILURE : Node 52 didn't connect 
+Node 45 > Sent successor to 46 (was successor) 
+Node 45 > Sent successor to 47 (was successor) 
+Node 45 > Sent successor to 49 (was successor) 
+Node 45 > Sent successor to 53 (was successor) 
+Node 45 > Sent successor to 61 (was successor) 
+Node 67 > Predecessor updated: 45 
+Node 67 > Sent successor to 77 (was successor) 
+Node 100 > Sent successor to 109 (was successor) 
+Node 150 > Sent successor to 173 (was successor) 
+Node 233 > Sent successor to 234 (wrapped) 
+Node 233 > Sent successor to 235 (wrapped) 
+Node 233 > Sent successor to 237 (wrapped) 
+Node 233 > Sent successor to 241 (wrapped) 
+Node 233 > Sent successor to 249 (wrapped) 
+Node 233 > Sent successor to 9 (wrapped) 
+Node 33 > Sent successor to 41 (was successor) 
+Node 100 > Sent successor to 105 (was successor) 
+Node 150 > Sent successor to 151 (was successor) 
+Node 150 > Sent successor to 152 (was successor) 
+Node 150 > Sent successor to 154 (was successor) 
+Node 150 > Sent successor to 158 (was successor) 
+Node 150 > Sent successor to 166 (was successor) 
+Node 150 > Sent successor to 182 (was successor) 
+Node 200 > Sent successor to 214 (was successor) 
+Node 233 > Sent successor to 22 (wrapped) 
+Node 200 > Sent successor to 201 (was successor) 
+Node 200 > Sent successor to 202 (was successor) 
+Node 200 > Sent successor to 204 (was successor) 
+Node 200 > Sent successor to 208 (was successor) 
+Node 200 > Sent successor to 216 (was successor) 
+Node 200 > Sent successor to 232 (was successor) 
+Node 233 > Sent successor to 8 (wrapped) 
+Node 100 > Sent successor to 101 (was successor) 
+Node 100 > Sent successor to 102 (was successor) 
+Node 100 > Sent successor to 104 (was successor) 
+Node 100 > Sent successor to 108 (was successor) 
+Node 100 > Sent successor to 116 (was successor) 
+Node 100 > Sent successor to 132 (was successor) 
+Node 150 > Sent successor to 164 (was successor) 
+Node 200 > Sent successor to 228 (was successor) 
