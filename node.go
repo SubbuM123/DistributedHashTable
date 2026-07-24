@@ -13,7 +13,7 @@ import (
 
 type Node struct {
 	hashtable map[string]string
-	pred_hashtable map[string]string
+	pred_replica map[string]string
 
 	id        uint64
 	addr      string
@@ -121,6 +121,10 @@ func (n *Node) event_manage() {
 			}
 		case "ls":
 			for key := range n.hashtable {
+				fmt.Println("key " + key)
+			}
+		case "lsrep":
+			for key := range n.pred_replica {
 				fmt.Println("key " + key)
 			}
 		case "s":

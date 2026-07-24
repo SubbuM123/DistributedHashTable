@@ -39,3 +39,9 @@ func (n *Node) FailureDetector() {
 		n.PingNeighbor(n.predecessor)
     }
 }
+
+// upon fail of successor
+// move successor list
+// call update successor list
+
+// send a copy of data to new sucessor

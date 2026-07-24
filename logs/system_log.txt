@@ -6868,3 +6868,47 @@ Node 67 > NODE FAILURE : Node 100 didn't connect
 Node 33 > NODE FAILURE : Node 45 didn't connect 
 Node 233 > NODE FAILURE : Node 200 didn't connect 
 Node 52 > NODE FAILURE : Node 45 didn't connect 
+Node 33 > Joined the system, yet to be placed 
+Node 33 > Join failed: dial tcp 127.0.0.1:8067: connectex: No connection could be made because the target machine actively refused it. 
+Node 45 > Joined the system, yet to be placed 
+Node 45 > Join failed: dial tcp 127.0.0.1:8067: connectex: No connection could be made because the target machine actively refused it. 
+Node 67 > Joined the system, yet to be placed 
+Node 67 > Initialized as the first node 
+Node 33 > Joined the system, yet to be placed 
+Node 33 > Successor assigned: 67 
+Node 33 > Predecessor assigned: 67 
+Node 67 > Predecessor updated: 33 
+Node 67 > Successor updated: 33 
+Node 45 > Joined the system, yet to be placed 
+Node 67 > Sent successor to 45 (was self) 
+Node 45 > Successor assigned: 67 
+Node 45 > Predecessor assigned: 33 
+Node 67 > Predecessor updated: 45 
+Node 33 > Successor updated: 45 
+Node 67 > Sent successor to 31 (wrapped) 
+Node 67 > Sent successor to 87 (wrapped) 
+Node 67 > Sent successor to 167 (wrapped) 
+Node 67 > Sent successor to 68 (wrapped) 
+Node 67 > Sent successor to 69 (wrapped) 
+Node 67 > Sent successor to 71 (wrapped) 
+Node 67 > Sent successor to 75 (wrapped) 
+Node 67 > Sent successor to 83 (wrapped) 
+Node 67 > Sent successor to 99 (wrapped) 
+Node 67 > Sent successor to 131 (wrapped) 
+Node 67 > Sent successor to 195 (wrapped) 
+Node 33 > Sent successor to 34 (was successor) 
+Node 33 > Sent successor to 35 (was successor) 
+Node 33 > Sent successor to 37 (was successor) 
+Node 33 > Sent successor to 41 (was successor) 
+Node 45 > Sent successor to 49 (was successor) 
+Node 45 > Sent successor to 65 (was successor) 
+Node 33 > Sent successor to 97 (was self) 
+Node 33 > Sent successor to 161 (was self) 
+Node 45 > Sent successor to 46 (was successor) 
+Node 45 > Sent successor to 47 (was successor) 
+Node 45 > Sent successor to 49 (was successor) 
+Node 45 > Sent successor to 53 (was successor) 
+Node 45 > Sent successor to 61 (was successor) 
+Node 67 > Sent successor to 77 (wrapped) 
+Node 67 > Sent successor to 109 (wrapped) 
+Node 67 > Sent successor to 173 (wrapped) 

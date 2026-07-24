@@ -56,6 +56,7 @@ func main() {
 	go n.FailureDetector()
 	go n.MakeFingerTable()
 	go n.Stabilize()
+	go n.Replication()
 	n.event_manage()
 	// switch {}
 }
