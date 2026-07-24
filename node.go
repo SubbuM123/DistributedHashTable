@@ -274,6 +274,9 @@ func (n *Node) UpdatePred(pred NodeInfo) {
 	if pred.Id == 0 || pred.Addr == "" {
 		return
 	}
+
+	n.BackupReplica()
+	
 	n.predecessor.Addr = pred.Addr
 	n.predecessor.Id = pred.Id
 
@@ -283,7 +286,6 @@ func (n *Node) UpdatePred(pred NodeInfo) {
 			n.Delete(key)
 		}
 	}
-
 	log_updates(n.id, "Predecessor updated: "+strconv.Itoa(int(n.predecessor.Id)))
 }
 
