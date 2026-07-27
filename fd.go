@@ -29,6 +29,7 @@ func (n *Node) PingNeighbor(neighbor NodeInfo, succ bool) {
 			}
 		} else {
 			log_updates(n.id, "Predecessor failure detected; waiting for ring stabilization")
+			n.TransferReplicaData()
 		}
 		return
 	}
@@ -53,6 +54,7 @@ func (n *Node) PingNeighbor(neighbor NodeInfo, succ bool) {
 			}
 		} else {
 			log_updates(n.id, "Predecessor unreachable; waiting for ring stabilization")
+			n.TransferReplicaData()
 		}
 		return
 	}
@@ -73,8 +75,16 @@ func (n *Node) FailureDetector() {
 	}
 }
 
+func (n *Node) TransferReplicaData() {
+	for key, value := range n.pred_replica {
+		n.Put(key, value)
+	}
+}
+
 // upon fail of successor
 // move successor list
 // call update successor list
 
 // send a copy of data to new sucessor
+
+// upon predecessor failure, can transfer all replica keys to current server, else put else where

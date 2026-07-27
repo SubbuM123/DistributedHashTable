@@ -4,7 +4,6 @@ import (
 	"errors"
 	// "fmt"
 	"net/rpc"
-	"strconv"
 	"time"
 )
 
@@ -44,17 +43,17 @@ func (n *Node) FindSuccessor(id uint64) NodeInfo {
 	}
 
 	if n.Owns(id) {
-		log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (was self)")
+		// log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (was self)")
 		return NodeInfo{Id: n.id, Addr: n.addr}
 	}
 
 	if n.id < n.successor.Id && id > n.id && id <= n.successor.Id {
-		log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (was successor)")
+		// log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (was successor)")
 		return n.successor
 	}
 
 	if n.id > n.successor.Id && (id > n.id || id <= n.successor.Id) {
-		log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (wrapped)")
+		// log_updates(n.id, "Sent successor to "+strconv.Itoa(int(id))+" (wrapped)")
 		return n.successor
 	}
 	f := n.FindFinger(id)

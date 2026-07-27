@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"fmt"
+	"strconv"
 )
 
 func log_updates(node_id uint64, update string) {
@@ -46,11 +47,12 @@ func log_data(node_id uint64, update string) {
 		update,
 	)
 }
-
-func (n *Node) BackupReplica() {
+// change this to backup data
+func (n *Node) BackupData() {
+	name := "logs/backup_" + strconv.Itoa(int(n.id)) + ".txt"
 	file, err := os.OpenFile(
-		"logs/backup.txt",
-		os.O_APPEND|os.O_CREATE|os.O_WRONLY,
+		name,
+		os.O_CREATE|os.O_WRONLY|os.O_TRUNC,
 		0644,
 	)
 
@@ -63,10 +65,10 @@ func (n *Node) BackupReplica() {
 	fmt.Fprintf(
 		file,
 		"\n Node %d BACKUP \n",
-		n.predecessor.Id,
+		n.id,
 	)
 
-	for key, value := range n.pred_replica {
+	for key, value := range n.hashtable {
 		fmt.Fprintf(
 		file,
 		"%s : %s \n",

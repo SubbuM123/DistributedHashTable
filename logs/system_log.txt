@@ -1,6 +1,0 @@
-Node 200 > NODE FAILURE : Node 150 didn't connect 
-Node 200 > Predecessor failure detected; waiting for ring stabilization 
-Node 100 > NODE FAILURE : Node 150 didn't connect 
-Node 200 > Predecessor updated: 100 
-Node 100 > NODE FAILURE : Node 67 didn't connect 
-Node 100 > Predecessor failure detected; waiting for ring stabilization 

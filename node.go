@@ -270,12 +270,22 @@ func (n *Node) Stabilize() {
     }
 }
 
+func (n *Node) DiskBackup() {
+	ticker := time.NewTicker(5 * time.Second)
+    defer ticker.Stop()
+
+    for range ticker.C {
+        n.BackupData()
+    }
+}
+
 func (n *Node) UpdatePred(pred NodeInfo) {
 	if pred.Id == 0 || pred.Addr == "" {
 		return
 	}
 
-	n.BackupReplica()
+	// n.BackupReplica()
+	n.TransferReplicaData()
 	
 	n.predecessor.Addr = pred.Addr
 	n.predecessor.Id = pred.Id
