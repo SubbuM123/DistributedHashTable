@@ -2,13 +2,11 @@
 
 This project implements a distributed hash table (DHT) in Go using a Chord-inspired ring architecture. It provides a simple key-value store that can be distributed across multiple nodes, with support for node joining, successor discovery, finger tables, replication, and failure detection.
 
-## Overview
-
 The system is designed to distribute data across a dynamic set of participating nodes. Each node is responsible for a portion of the key space based on a consistent hash, and requests are routed through the ring to the appropriate owner. The implementation uses Go's built-in RPC package for communication between nodes and supports basic CRUD operations over the distributed store.
 
 ## Requirements
 
-Before running the project, ensure the following are installed:
+To run the project, install these:
 
 - Go 1.26 or newer
 - Git
@@ -17,7 +15,7 @@ Before running the project, ensure the following are installed:
 ## Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SubbuM123/DistributedHashTable.git
 cd "Distributed Hashtable"
 ```
 
@@ -29,17 +27,11 @@ From the repository root, build the binary:
 go build -o dht.exe .
 ```
 
-On Linux or macOS, you may use:
-
-```bash
-go build -o dht .
-```
-
 ## Run the System
 
 This project is started by launching one or more nodes. Each node must be given:
 
-- a bootstrap address (or `START` for the first node)
+- a bootstrap address (this node will introduce the new one to others)
 - a node ID
 - a listening address
 
@@ -82,6 +74,10 @@ PUT user alice
 GET user
 DELETE user
 ```
+
+### Maintenance and Status
+
+Various logs are maintained throughout the system. logs/data_log tracks CRUD operations. logs/system_log tracks node joins, failures, and ring updates. Each node also updates a file with its content to serve as a disk backup in case of failure
 
 ## Features
 
