@@ -79,19 +79,7 @@ DELETE user
 
 Various logs are maintained throughout the system. logs/data_log tracks CRUD operations. logs/system_log tracks node joins, failures, and ring updates. Each node also updates a file with its content to serve as a disk backup in case of failure
 
-## Features
-
-### Distributed key-value storage
-
-The system provides a distributed hash table interface for storing and retrieving key-value pairs across multiple nodes. Keys are mapped into a shared ring space, and each node is responsible for a subset of that space.
-
-### Chord-inspired ring topology
-
-The implementation follows the core ideas of the Chord protocol, including a circular identifier space and logical placement of data based on node and key identifiers. This enables decentralized routing and supports incremental node membership changes.
-
-### Successor and predecessor tracking
-
-Each node maintains information about its immediate successor and predecessor in the ring. This allows the system to route requests efficiently and maintain ring consistency as nodes join and leave.
+## Selected Features
 
 ### Finger table support
 
@@ -101,21 +89,14 @@ Nodes maintain a finger table that helps accelerate routing decisions by providi
 
 All node-to-node communication is implemented using Go's remote procedure call mechanism. This provides a simple and reliable way for nodes to exchange metadata, route requests, and coordinate operations in a distributed environment.
 
-### CRUD operations over the network
-
-The system supports distributed create, read, update, and delete behavior. A client operation is routed to the node that owns the corresponding key, and the request is executed there.
-
 ### Replication
 
 The implementation includes basic replica support so that data can be replicated to successor nodes. This improves fault tolerance and helps preserve data availability when a node becomes unreachable.
 
 ### Failure detection
 
-Nodes periodically probe their successor and predecessor to detect failures. If a node is found to be unreachable, the system can transition to an alternate successor and continue operation with minimal disruption.
+Nodes periodically probe their successor and predecessor to detect failures. If a node is found to be unreachable, the system can transition to an alternate successor and continue operation with minimal disruption. Lost data is recovered and redistributed via replicas. Nodes who re-join the system will regain their data
 
-### Logging and observability
-
-The project writes operational and data events to log files under the `logs` directory. These logs allow the system behavior to be inspected during development and testing.
 
 ## Project Structure
 
