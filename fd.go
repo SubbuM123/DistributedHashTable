@@ -23,7 +23,7 @@ func (n *Node) PingNeighbor(neighbor NodeInfo, succ bool) {
 					if client, err := rpc.Dial("tcp", n.successor.Addr); err == nil {
 						defer client.Close()
 						var reply bool
-						_ = client.Call("Node.RemoteNotifySuccessor", NodeInfo{Id: n.id, Addr: n.addr}, &reply)
+						_ = client.Call("Node.RemoteNotifySuccessor", NodePredInfo {NI : NodeInfo{Id: n.id, Addr: n.addr}, Fail : true}, &reply)
 					}
 				}
 			}
@@ -48,7 +48,7 @@ func (n *Node) PingNeighbor(neighbor NodeInfo, succ bool) {
 					if client, err := rpc.Dial("tcp", n.successor.Addr); err == nil {
 						defer client.Close()
 						var reply bool
-						_ = client.Call("Node.RemoteNotifySuccessor", NodeInfo{Id: n.id, Addr: n.addr}, &reply)
+						_ = client.Call("Node.RemoteNotifySuccessor", NodePredInfo{NI : NodeInfo{Id: n.id, Addr: n.addr}, Fail : true}, &reply)
 					}
 				}
 			}

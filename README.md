@@ -1,0 +1,138 @@
+# Distributed Hashtable in Go
+
+This project implements a distributed hash table (DHT) in Go using a Chord-inspired ring architecture. It provides a simple key-value store that can be distributed across multiple nodes, with support for node joining, successor discovery, finger tables, replication, and failure detection.
+
+## Overview
+
+The system is designed to distribute data across a dynamic set of participating nodes. Each node is responsible for a portion of the key space based on a consistent hash, and requests are routed through the ring to the appropriate owner. The implementation uses Go's built-in RPC package for communication between nodes and supports basic CRUD operations over the distributed store.
+
+## Requirements
+
+Before running the project, ensure the following are installed:
+
+- Go 1.26 or newer
+- Git
+- A terminal or command prompt
+
+## Clone the Repository
+
+```bash
+git clone <repository-url>
+cd "Distributed Hashtable"
+```
+
+## Build the Project
+
+From the repository root, build the binary:
+
+```bash
+go build -o dht.exe .
+```
+
+On Linux or macOS, you may use:
+
+```bash
+go build -o dht .
+```
+
+## Run the System
+
+This project is started by launching one or more nodes. Each node must be given:
+
+- a bootstrap address (or `START` for the first node)
+- a node ID
+- a listening address
+
+### Start the first node
+
+```bash
+./dht.exe START 1 127.0.0.1:8001
+```
+
+### Start a second node
+
+Open a second terminal and run:
+
+```bash
+./dht.exe 127.0.0.1:8001 2 127.0.0.1:8002
+```
+
+### Start additional nodes
+
+Additional nodes can be started in the same manner by providing the address of an existing node as the bootstrap target.
+
+## Using the Interactive CLI
+
+Once a node is running, you can interact with it through the terminal using the following commands:
+
+- `PUT <key> <value>`: store a value under a key
+- `GET <key>`: retrieve a stored value
+- `DELETE <key>`: remove a key from the store
+- `ls`: list locally stored keys
+- `lsrep`: list replicated keys
+- `s`: display the current successor list
+- `f`: display finger table entries
+- `n`: display current successor and predecessor information
+- `EXIT`: shut down the node
+
+Example:
+
+```text
+PUT user alice
+GET user
+DELETE user
+```
+
+## Features
+
+### Distributed key-value storage
+
+The system provides a distributed hash table interface for storing and retrieving key-value pairs across multiple nodes. Keys are mapped into a shared ring space, and each node is responsible for a subset of that space.
+
+### Chord-inspired ring topology
+
+The implementation follows the core ideas of the Chord protocol, including a circular identifier space and logical placement of data based on node and key identifiers. This enables decentralized routing and supports incremental node membership changes.
+
+### Successor and predecessor tracking
+
+Each node maintains information about its immediate successor and predecessor in the ring. This allows the system to route requests efficiently and maintain ring consistency as nodes join and leave.
+
+### Finger table support
+
+Nodes maintain a finger table that helps accelerate routing decisions by providing shortcuts to nodes that are closer to a target key. This improves lookup efficiency across the distributed structure.
+
+### RPC-based communication
+
+All node-to-node communication is implemented using Go's remote procedure call mechanism. This provides a simple and reliable way for nodes to exchange metadata, route requests, and coordinate operations in a distributed environment.
+
+### CRUD operations over the network
+
+The system supports distributed create, read, update, and delete behavior. A client operation is routed to the node that owns the corresponding key, and the request is executed there.
+
+### Replication
+
+The implementation includes basic replica support so that data can be replicated to successor nodes. This improves fault tolerance and helps preserve data availability when a node becomes unreachable.
+
+### Failure detection
+
+Nodes periodically probe their successor and predecessor to detect failures. If a node is found to be unreachable, the system can transition to an alternate successor and continue operation with minimal disruption.
+
+### Logging and observability
+
+The project writes operational and data events to log files under the `logs` directory. These logs allow the system behavior to be inspected during development and testing.
+
+## Project Structure
+
+- `main.go`: entry point and node startup logic
+- `node.go`: node state, join logic, and CLI handling
+- `chord.go`: Chord-style successor and finger table logic
+- `crud.go`: distributed CRUD operations
+- `rpc.go`: RPC handlers for remote requests
+- `send.go`: client-side RPC helpers
+- `fd.go`: failure detection logic
+- `replica.go`: replication behavior
+- `logger.go`: logging utilities
+
+## Notes
+
+This is a learning-oriented distributed systems implementation and is intended to demonstrate core DHT concepts rather than provide a production-grade distributed database. It is a useful foundation for understanding peer-to-peer storage, consistent hashing, ring-based routing, and distributed fault tolerance.

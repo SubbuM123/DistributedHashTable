@@ -31,6 +31,11 @@ type NodeInfo struct {
 	Addr string
 }
 
+type NodePredInfo struct {
+	NI NodeInfo
+	Fail bool
+}
+
 type NodeRef struct {
 	id   uint64
 	addr string
@@ -182,6 +187,8 @@ func (n *Node) JoinSystem(bs_addr string) error {
 
 	info := NodeInfo{Id: n.id, Addr: n.addr}
 
+	info2 := NodePredInfo { NI : info, Fail : false}
+
 	var pred NodeInfo
 	predClient, err := rpc.Dial("tcp", n.successor.Addr)
 	if err != nil {
@@ -197,7 +204,7 @@ func (n *Node) JoinSystem(bs_addr string) error {
 	log_updates(n.id, "Predecessor assigned: "+strconv.Itoa(int(n.predecessor.Id)))
 
 	var reply bool
-	if err := predClient.Call("Node.RemoteNotifySuccessor", info, &reply); err != nil {
+	if err := predClient.Call("Node.RemoteNotifySuccessor", info2, &reply); err != nil {
 		return err
 	}
 
@@ -279,23 +286,55 @@ func (n *Node) DiskBackup() {
     }
 }
 
-func (n *Node) UpdatePred(pred NodeInfo) {
+// func (n *Node) UpdatePred(pred NodeInfo) {
+// 	if pred.Id == 0 || pred.Addr == "" {
+// 		return
+// 	}
+
+// 	// line 288 and 293-298 are an or, only ones needs to be done.use context to figure it out and proceed
+
+// 	// if a new node is added and we call update pred, we can call the loop
+// 	// or tbh just add a flag
+// 	n.TransferReplicaData()
+	
+// 	n.predecessor.Addr = pred.Addr
+// 	n.predecessor.Id = pred.Id
+
+// 	for key, value := range n.hashtable {
+// 		if hash(key) <= pred.Id {
+// 			n.SendPut(pred.Addr, key,value)
+// 			n.Delete(key)
+// 		}
+// 	}
+// 	log_updates(n.id, "Predecessor updated: "+strconv.Itoa(int(n.predecessor.Id)))
+// }
+
+func (n *Node) UpdatePred(pred NodeInfo, fail bool) {
 	if pred.Id == 0 || pred.Addr == "" {
 		return
 	}
 
-	// n.BackupReplica()
-	n.TransferReplicaData()
+	if fail {
+		n.TransferReplicaData()
+	}
+
+	// line 288 and 293-298 are an or, only ones needs to be done.use context to figure it out and proceed
+
+	// if a new node is added and we call update pred, we can call the loop
+	// or tbh just add a flag
+	
 	
 	n.predecessor.Addr = pred.Addr
 	n.predecessor.Id = pred.Id
-
-	for key, value := range n.hashtable {
-		if hash(key) <= pred.Id {
-			n.SendPut(pred.Addr, key,value)
-			n.Delete(key)
+	if !fail {
+		for key, value := range n.hashtable {
+			if hash(key) <= pred.Id {
+				n.SendPut(pred.Addr, key,value)
+				n.Delete(key)
+			}
 		}
 	}
+	
 	log_updates(n.id, "Predecessor updated: "+strconv.Itoa(int(n.predecessor.Id)))
 }
 
@@ -310,8 +349,15 @@ func (n *Node) UpdateSucc(succ NodeInfo) {
 	n.updateSuccessorList(succ)
 }
 
-func (n *Node) RemoteNotifySuccessor(pred NodeInfo, reply *bool) error {
-	n.UpdatePred(pred)
+// func (n *Node) RemoteNotifySuccessor(pred NodeInfo, reply *bool) error {
+// 	n.UpdatePred(pred)
+
+// 	*reply = true
+// 	return nil
+// }
+
+func (n *Node) RemoteNotifySuccessor(pred NodePredInfo, reply *bool) error {
+	n.UpdatePred(pred.NI, pred.Fail)
 
 	*reply = true
 	return nil
